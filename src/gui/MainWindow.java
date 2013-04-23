@@ -14,27 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JTextArea;
 
 public class MainWindow {
 
-	private JFrame frame;
+	JFrame frame;
 	private JTextField txtSearch;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MainWindow window = new MainWindow();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -204,9 +189,51 @@ public class MainWindow {
 		
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Patch Notes", null, panel_1, null);
+		panel_1.setLayout(null);
+		
+		JTextArea textAreaPatchNotes = new JTextArea();
+		textAreaPatchNotes.setEditable(false);
+		textAreaPatchNotes.setBounds(10, 0, 951, 432);
+		panel_1.add(textAreaPatchNotes);
 		
 		JPanel panel_2 = new JPanel();
 		tabbedPane.addTab("Chat", null, panel_2, null);
+		panel_2.setLayout(null);
+		
+		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane_1.setBounds(10, 11, 951, 421);
+		panel_2.add(tabbedPane_1);
+		
+		JPanel panel_12 = new JPanel();
+		tabbedPane_1.addTab("Decks", null, panel_12, null);
+		panel_12.setLayout(null);
+		
+		JPanel panel_14 = new JPanel();
+		panel_14.setBounds(10, 11, 539, 371);
+		panel_12.add(panel_14);
+		panel_14.setLayout(null);
+		
+		JScrollPane scrollPane_2 = new JScrollPane();
+		scrollPane_2.setBounds(10, 11, 519, 349);
+		panel_14.add(scrollPane_2);
+		
+		JList list = new JList();
+		scrollPane_2.setViewportView(list);
+		
+		JPanel panel_15 = new JPanel();
+		panel_15.setBounds(559, 11, 377, 371);
+		panel_12.add(panel_15);
+		panel_15.setLayout(null);
+		
+		JScrollPane scrollPane_3 = new JScrollPane();
+		scrollPane_3.setBounds(10, 11, 250, 197);
+		panel_15.add(scrollPane_3);
+		
+		JList list_1 = new JList();
+		scrollPane_3.setViewportView(list_1);
+		
+		JPanel panel_13 = new JPanel();
+		tabbedPane_1.addTab("Replays", null, panel_13, null);
 		
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("File Manager", null, panel_3, null);

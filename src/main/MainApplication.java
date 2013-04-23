@@ -19,6 +19,8 @@ public class MainApplication {
 		updateLAF();
 		//start gui
 		GUIHandler.launchLoginWindow();
+		//Check login then launch main window
+		GUIHandler.launchMainWindow();
 	}
 	
 

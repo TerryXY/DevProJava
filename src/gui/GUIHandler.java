@@ -21,8 +21,8 @@ public class GUIHandler {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					LoginWindow window = new LoginWindow();
-					window.frmDevpro.setVisible(true);
+					MainWindow window = new MainWindow();
+					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
