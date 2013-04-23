@@ -15,6 +15,12 @@ import javax.swing.JLabel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextArea;
+import javax.swing.border.SoftBevelBorder;
+import javax.swing.border.BevelBorder;
+import javax.swing.ListSelectionModel;
+import javax.swing.AbstractListModel;
+
+import room.Room;
 
 public class MainWindow {
 
@@ -31,6 +37,7 @@ public class MainWindow {
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("serial")
 	private void initialize() {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 1012, 531);
@@ -55,7 +62,8 @@ public class MainWindow {
 		scrollPane.setBounds(10, 22, 332, 346);
 		panel_7.add(scrollPane);
 		
-		JList listboxUnraked = new JList();
+		JList<Room> listboxUnraked = new JList<Room>();
+		listboxUnraked.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane.setViewportView(listboxUnraked);
 		
 		JButton btnNewButton = new JButton("Quick");
@@ -77,6 +85,7 @@ public class MainWindow {
 		panel_8.add(scrollPane_1);
 		
 		JList listboxRanked = new JList();
+		listboxRanked.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		scrollPane_1.setViewportView(listboxRanked);
 		
 		JButton button_1 = new JButton("Host");
@@ -196,8 +205,59 @@ public class MainWindow {
 		textAreaPatchNotes.setBounds(10, 0, 951, 432);
 		panel_1.add(textAreaPatchNotes);
 		
+		JPanel panel_3 = new JPanel();
+		tabbedPane.addTab("Chat", null, panel_3, null);
+		panel_3.setLayout(null);
+		
+		JPanel panel_16 = new JPanel();
+		panel_16.setBorder(new SoftBevelBorder(BevelBorder.LOWERED, null, null, null, null));
+		panel_16.setBounds(10, 11, 748, 421);
+		panel_3.add(panel_16);
+		panel_16.setLayout(null);
+		
+		JScrollPane scrollPane_4 = new JScrollPane();
+		scrollPane_4.setBounds(0, 0, 748, 421);
+		panel_16.add(scrollPane_4);
+		
+		JList chatListbox = new JList();
+		scrollPane_4.setViewportView(chatListbox);
+		
+		JTabbedPane tabbedPane_2 = new JTabbedPane(JTabbedPane.BOTTOM);
+		tabbedPane_2.setBorder(null);
+		tabbedPane_2.setBounds(768, 11, 193, 421);
+		panel_3.add(tabbedPane_2);
+		
+		JPanel panel_17 = new JPanel();
+		panel_17.setBorder(null);
+		tabbedPane_2.addTab("Users", null, panel_17, null);
+		panel_17.setLayout(null);
+		
+		JTabbedPane tabbedPane_3 = new JTabbedPane(JTabbedPane.TOP);
+		tabbedPane_3.setBorder(null);
+		tabbedPane_3.setBounds(0, 0, 188, 393);
+		panel_17.add(tabbedPane_3);
+		
+		JPanel panel_20 = new JPanel();
+		panel_20.setBorder(null);
+		tabbedPane_3.addTab("Online", null, panel_20, null);
+		panel_20.setLayout(null);
+		
+		JPanel panel_21 = new JPanel();
+		panel_21.setBorder(null);
+		tabbedPane_3.addTab("Team", null, panel_21, null);
+		
+		JPanel panel_22 = new JPanel();
+		panel_22.setBorder(null);
+		tabbedPane_3.addTab("Friends", null, panel_22, null);
+		
+		JPanel panel_18 = new JPanel();
+		tabbedPane_2.addTab("Ignore", null, panel_18, null);
+		
+		JPanel panel_19 = new JPanel();
+		tabbedPane_2.addTab("Friends", null, panel_19, null);
+		
 		JPanel panel_2 = new JPanel();
-		tabbedPane.addTab("Chat", null, panel_2, null);
+		tabbedPane.addTab("File Manager", null, panel_2, null);
 		panel_2.setLayout(null);
 		
 		JTabbedPane tabbedPane_1 = new JTabbedPane(JTabbedPane.TOP);
@@ -234,9 +294,6 @@ public class MainWindow {
 		
 		JPanel panel_13 = new JPanel();
 		tabbedPane_1.addTab("Replays", null, panel_13, null);
-		
-		JPanel panel_3 = new JPanel();
-		tabbedPane.addTab("File Manager", null, panel_3, null);
 		
 		JPanel panel_4 = new JPanel();
 		tabbedPane.addTab("Customize", null, panel_4, null);
