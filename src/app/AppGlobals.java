@@ -2,6 +2,8 @@ package app;
 
 import java.util.Collection;
 
+import javax.swing.JList;
+
 import room.Room;
 
 public class AppGlobals {
