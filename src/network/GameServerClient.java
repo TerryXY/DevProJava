@@ -2,65 +2,67 @@ package network;
 import java.io.*;
 import java.net.*;
 
+import app.AppGlobals;
+
 public class GameServerClient extends Thread
 {
-	Socket connection = null;
-	DataInputStream receive = null;
-	DataOutputStream send = null;
-	Boolean isConnected = false;
+	public Socket connection = null;
+	public DataInputStream receive = null;
+	public DataOutputStream send = null;
+	public Boolean isConnected = false;
+	String ip = "";
+	int port = -1;
 	
-	
-	
-	public boolean Connect(String server,int port)
+	public GameServerClient(String ip, int port) {
+		this.ip = ip;
+		this.port = port;
+	}
+
+	public void run()
 	{
-		try
-		{
-			connection = new Socket(server,port);
+		if(ip != "" && port != -1){
+			if(connect(this.ip, this.port));
+				updateLoop();
 		}
-		catch(UnknownHostException e)
-		{
-			System.out.println("");
-			return false;
-		}
-		catch(IOException e)
-		{
-			System.out.println("Failed to connect to " + server);
-			return false;
-		}
-		
-		
-		
-		try 
-		{
-			receive = new DataInputStream(connection.getInputStream());
-			send = new DataOutputStream(connection.getOutputStream());
-		} catch (IOException e) 
-		{
+	}
+	
+	public boolean connect(String server,int port)
+	{
+
+		try {
+			this.connection = new Socket(server,port);
+			this.receive = new DataInputStream(connection.getInputStream());
+			this.send = new DataOutputStream(connection.getOutputStream());
+		} catch (IOException e) {
+			System.out.println("Couldn't connecto server");
 			e.printStackTrace();
 			return false;
 		}
+
 		isConnected = true;
-		start();
 		System.out.println("Connected to " + server + " Port: " + port);
+
 		return true;
 	}
 	
-	public void Disconnect()
+	public void disconnect()
 	{
 		isConnected = false;
 	}
-	public void SendPacket(ServerPackets type)
+	
+	public void sendPacket(ServerPackets type)
 	{
-		SendPacket(new byte[] { 0x01, 0x00, (byte)type.getValue() });
+		sendPacket(new byte[] { 0x01, 0x00, (byte)type.getValue() });
 	}
-	public void SendPacket(ServerPackets type, byte[] data)
+	
+	public void sendPacket(ServerPackets type, byte[] data)
 	{
 	    ByteArrayOutputStream os = new ByteArrayOutputStream();
 	    os.write((byte)data.length + 1);
 	    os.write((byte)type.getValue());
 	    try {
 	    	os.write(data);		
-	    	SendPacket(os.toByteArray());
+	    	sendPacket(os.toByteArray());
 	    	os.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -68,11 +70,12 @@ public class GameServerClient extends Thread
 
 	}
 	
-	private void SendPacket(byte[] data)
+	private void sendPacket(byte[] data)
 	{
 		try 
 		{
-			send.write(data);
+			if(data != null && isConnected)
+				this.send.write(data);
 		} 
 		catch (IOException e) 
 		{
@@ -80,32 +83,32 @@ public class GameServerClient extends Thread
 		}
 	}
 	
-	public void run()
-	{
+	private void updateLoop(){
 		while(isConnected)
 		{
 			try 
 			{
 				int len = receive.readInt();
 				byte[] content = new byte[len];
-				receive.read(content, 0, content.length);
+				this.receive.read(content, 0, content.length);
 				
 				System.out.println("Packet Recived");
-				OnCommand(content);
+				System.out.println(content);
+				onCommand(content);
 				
 			} 
 			catch (IOException e)
 			{
-				Disconnect();
+				disconnect();
 				e.printStackTrace();
 			}
 		}
 		try
 		{
-			Disconnect();
-			send.close();
-			receive.close();
-			connection.close();
+			disconnect();
+			this.send.close();
+			this.receive.close();
+			this.connection.close();
 		} 
 		catch (IOException e)
 		{
@@ -113,7 +116,8 @@ public class GameServerClient extends Thread
 		}
 	}
 	
-	public void OnCommand(byte[] raw)
+	
+	public void onCommand(byte[] raw)
 	{
 		//do packet handling here
 	}
