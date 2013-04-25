@@ -1,7 +1,6 @@
 package room;
 
 import java.util.Collection;
-import java.util.List;
 
 import config.BanListType;
 import config.ModeType;
