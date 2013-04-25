@@ -24,4 +24,25 @@ public class GUIManager {
 	//Patch Notes Tab
 	public static JTextArea patchNotes;
 	
+	//Tournament Tab
+	public static JLabel lblTournFirstCompetitor1;
+	public static JLabel lblTournFirstCompetitor2;
+	public static JLabel lblTournFirstCompetitor3;
+	public static JLabel lblTournFirstCompetitor4;
+	public static JLabel lblTournFirstCompetitor5;
+	public static JLabel lblTournFirstCompetitor6;
+	public static JLabel lblTournFirstCompetitor7;
+	public static JLabel lblTournFirstCompetitor8;
+	
+	public static JLabel lblTournSecondCompetitor1;
+	public static JLabel lblTournSecondCompetitor2;
+	public static JLabel lblTournSecondCompetitor3;
+	public static JLabel lblTournSecondCompetitor4;
+	
+	public static JLabel lblTournThirdCompetitor1;
+	public static JLabel lblTournThirdCompetitor2;
+	
+	public static JLabel lblTournFinalCompetitor1;
+	
+	
 }
