@@ -14,6 +14,12 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
+import network.ServerPackets;
+import app.AppGlobals;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 public class LoginWindow {
 
 	public JFrame frmDevpro;
@@ -73,6 +79,11 @@ public class LoginWindow {
 		frmDevpro.getContentPane().add(textField_password);
 		
 		JButton btnLogin = new JButton("Login");
+		btnLogin.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				AppGlobals.gameServer.sendPacket(ServerPackets.Ping);
+			}
+		});
 		btnLogin.setBounds(10, 132, 82, 23);
 		frmDevpro.getContentPane().add(btnLogin);
 		

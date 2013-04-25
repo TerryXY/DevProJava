@@ -24,10 +24,9 @@ public class MainApplication {
 		updateLAF();
 		//start gui
 		GUIHandler.launchLoginWindow();
-		AppGlobals.gameServer = new GameServerClient();
-		AppGlobals.gameServer.Connect("127.0.0.1",7922);
+		AppGlobals.gameServer = new GameServerClient("86.0.24.143", 7922);
+		AppGlobals.gameServer.start();
 		
-		AppGlobals.gameServer.SendPacket(ServerPackets.Ping);
 		//Check login then launch main window
 		GUIHandler.launchMainWindow();
 	}
