@@ -11,5 +11,24 @@ public int getValue()
 {
 	return value;
 }
+public static ServerPackets fromInt(int code) {
+	
+	switch(code) 
+	{
+		case 0:
+			return GameList;
+		case 1:
+			return Kill;
+		case 2:
+			return Kick;
+		case 3:
+			return Ping;
+		case 4:
+			return Login;
+		case 5:
+			return Register;
+		}
+	return null;
+}
 
 }
