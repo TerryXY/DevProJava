@@ -3,11 +3,11 @@ package app;
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import javax.swing.JList;
 
 import org.apache.commons.net.util.Base64;
 
@@ -20,9 +20,9 @@ import tournament.Tournament;
 
 public class AppGlobals {
 
-	public static Collection<Long> userList;
-	public static Collection<Room> roomList;
-	public static Collection<Tournament> tournamentList;
+	public static Collection<Long> userList = new ArrayList<Long>();
+	public static Collection<Room> roomList = new ArrayList<Room>();
+	public static Collection<Tournament> tournamentList = new ArrayList<Tournament>();
 	public static Long localUserId;
 	public static GameServerClient gameServer;
 	public static Gson gson = new Gson();

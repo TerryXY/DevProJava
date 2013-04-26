@@ -1,11 +1,15 @@
 package gui;
 
+import java.util.ArrayList;
+
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+
+import tournament.Tournament;
 
 public class GUIManager {
 
@@ -43,6 +47,7 @@ public class GUIManager {
 	public static JLabel lblTournThirdCompetitor2;
 	
 	public static JLabel lblTournFinalCompetitor1;
+	public static JList<Tournament> listboxOpenTournament;
 	
 	
 }
