@@ -1,5 +1,6 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import javax.swing.JList;
@@ -11,9 +12,9 @@ import tournament.Tournament;
 
 public class AppGlobals {
 
-	public static Collection<Long> userList;
-	public static Collection<Room> roomList;
-	public static Collection<Tournament> tournamentList;
+	public static Collection<Long> userList = new ArrayList<Long>();
+	public static Collection<Room> roomList = new ArrayList<Room>();
+	public static Collection<Tournament> tournamentList = new ArrayList<Tournament>();
 	public static Long localUserId;
 	public static GameServerClient gameServer;
 	

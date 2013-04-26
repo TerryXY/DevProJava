@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
 import javax.swing.border.TitledBorder;
+import javax.swing.DefaultListModel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
@@ -21,10 +22,20 @@ import javax.swing.ListSelectionModel;
 import javax.swing.AbstractListModel;
 
 import room.Room;
+import tournament.Tournament;
+import tournament.TournamentSystem;
+
 import javax.swing.UIManager;
 import java.awt.GridLayout;
 import java.awt.Color;
 import javax.swing.JSeparator;
+
+import app.AppGlobals;
+
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Window.Type;
+import java.awt.Dialog.ModalExclusionType;
 
 public class MainWindow {
 
@@ -47,11 +58,17 @@ public class MainWindow {
 		frame.setBounds(100, 100, 1012, 531);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
+		//frame.setUndecorated(true);
+		
+		MoveMouseListener mml = new MoveMouseListener(frame);
+		frame.addMouseListener(mml);
+		frame.addMouseMotionListener(mml);
+		
 		
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
 		tabbedPane.setBounds(10, 11, 976, 471);
 		frame.getContentPane().add(tabbedPane);
-		
+
 		JPanel panel = new JPanel();
 		tabbedPane.addTab("DevPro", null, panel, null);
 		panel.setLayout(null);
@@ -217,10 +234,24 @@ public class MainWindow {
 		scrollPane_5.setBounds(10, 21, 406, 330);
 		panel_24.add(scrollPane_5);
 		
-		JList list_2 = new JList();
-		scrollPane_5.setViewportView(list_2);
 		
-		JButton btnNewButton_1 = new JButton("Join");
+		DefaultListModel<Tournament> tournListModel = new DefaultListModel<Tournament>();
+		Tournament test = new Tournament();
+		test.id = 1;
+		test.name = "abc";
+		test.currentBracket = 1;
+		AppGlobals.tournamentList.add(test);
+		tournListModel.copyInto(AppGlobals.tournamentList.toArray());
+		JList<Tournament> listboxOpenTournaments = new JList<Tournament>(tournListModel);
+	
+
+		//listboxOpenTournaments.setListData(AppGlobals.tournamentList.toArray());
+		
+		
+		listboxOpenTournaments.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		scrollPane_5.setViewportView(listboxOpenTournaments);
+		GUIManager.listboxOpenTournament = listboxOpenTournaments;
+			JButton btnNewButton_1 = new JButton("Join");
 		btnNewButton_1.setBounds(347, 381, 89, 23);
 		panel_23.add(btnNewButton_1);
 		
@@ -281,6 +312,15 @@ public class MainWindow {
 		panel_28.add(chckbxAreYouReady);
 		
 		JButton btnJoinMatch = new JButton("Join Match");
+		btnJoinMatch.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Tournament tourn = new Tournament();
+				tourn.initCompetitorBoard();
+				tourn.setPositionLabel(1, 2, "Terry");
+				TournamentSystem.updateTournamentListbox();
+				
+			}
+		});
 		btnJoinMatch.setBounds(171, 122, 89, 23);
 		panel_28.add(btnJoinMatch);
 		
