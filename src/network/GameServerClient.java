@@ -1,6 +1,8 @@
 package network;
 import java.io.*;
 import java.net.*;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
 
 import app.AppGlobals;
 
@@ -75,7 +77,10 @@ public class GameServerClient extends Thread
 		try 
 		{
 			if(data != null && isConnected)
+			{
 				this.send.write(data);
+				System.out.println("Sent");
+			}
 		} 
 		catch (IOException e) 
 		{
@@ -88,11 +93,17 @@ public class GameServerClient extends Thread
 		{
 			try 
 			{
-				int len = receive.readInt();
+				byte[] bla = new byte[2];
+				this.receive.read(bla, 0, 2);
+				ByteBuffer bb = ByteBuffer.allocate(2);
+				bb.order(ByteOrder.LITTLE_ENDIAN);
+				bb.put(bla[0]);
+				bb.put(bla[1]);
+				short len = bb.getShort(0);
 				byte[] content = new byte[len];
-				this.receive.read(content, 0, content.length);
-				
+				this.receive.read(content);
 				System.out.println("Packet Recived");
+				System.out.println(content.length);
 				System.out.println(content);
 				onCommand(content);
 				
@@ -120,5 +131,7 @@ public class GameServerClient extends Thread
 	public void onCommand(byte[] raw)
 	{
 		//do packet handling here
+		ClientPackets cmd = ClientPackets.fromInt(raw[0]);
+		System.out.println(cmd.toString());
 	}
 }

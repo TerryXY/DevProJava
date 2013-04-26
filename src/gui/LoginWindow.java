@@ -14,11 +14,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 
+import network.LoginRequest;
 import network.ServerPackets;
 import app.AppGlobals;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.io.UnsupportedEncodingException;
 
 public class LoginWindow {
 
@@ -81,7 +83,19 @@ public class LoginWindow {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				AppGlobals.gameServer.sendPacket(ServerPackets.Ping);
+				//AppGlobals.gameServer.sendPacket(ServerPackets.Ping);
+				LoginRequest test = new LoginRequest();
+				test.username = "Test";
+				test.password = "Test";
+				test.uid = "Test";
+				try {
+					System.out.println(test.getJson());
+					AppGlobals.gameServer.sendPacket(ServerPackets.Login,test.getJson().getBytes("utf-8"));
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 			}
 		});
 		btnLogin.setBounds(10, 132, 82, 23);
