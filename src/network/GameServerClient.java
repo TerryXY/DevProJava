@@ -59,11 +59,18 @@ public class GameServerClient extends Thread
 	
 	public void sendPacket(ServerPackets type, byte[] data)
 	{
-	    ByteArrayOutputStream os = new ByteArrayOutputStream();
-	    os.write((byte)data.length + 1);
-	    os.write((byte)type.getValue());
-	    try {
-	    	os.write(data);		
+		ByteArrayOutputStream os = new ByteArrayOutputStream();
+		   
+		ByteBuffer bb = ByteBuffer.allocate(2);
+		bb.order(ByteOrder.LITTLE_ENDIAN);
+		bb.putShort((short)(data.length + 1));
+		byte[] size = bb.array();
+		
+		try 
+		{
+			os.write(size);
+			os.write((byte)type.getValue());
+	    	os.write(data);
 	    	sendPacket(os.toByteArray());
 	    	os.close();
 		} catch (IOException e) {
