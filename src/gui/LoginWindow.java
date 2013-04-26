@@ -83,12 +83,13 @@ public class LoginWindow {
 		JButton btnLogin = new JButton("Login");
 		btnLogin.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				LoginRequest test = new LoginRequest();
-				test.username = "Test";
-				test.password = "Test";
-				test.uid = "Test";
 				try {
-					AppGlobals.gameServer.sendPacket(ServerPackets.Login,AppGlobals.gson.toJson(test).getBytes("utf-8"));
+					AppGlobals.gameServer.sendPacket(ServerPackets.Login,AppGlobals.gson.toJson(
+							new LoginRequest(
+									textField_userName.getText(),
+									AppGlobals.hashPasswrod(new String(textField_password.getPassword())),
+									"TEST"
+									)).getBytes("utf-8"));
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

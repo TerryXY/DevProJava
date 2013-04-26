@@ -1,6 +1,6 @@
 package network;
 
 public class LoginData {
-	public int loginKey;
-	public int userRank;
+	public int LoginKey;
+	public int UserRank;
 }

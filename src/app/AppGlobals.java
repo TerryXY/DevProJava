@@ -29,16 +29,6 @@ public class AppGlobals {
 	
 	public static String hashPasswrod(String password)
 	{
-		
-        //var salt = System.Text.Encoding.UTF8.GetBytes("&^%£$Ugdsgs:;");
-        //var userpassword = System.Text.Encoding.UTF8.GetBytes(password);
-
-        //var hmacMD5 = new HMACMD5(salt);
-        //var saltedHash = hmacMD5.ComputeHash(userpassword);
-
-
-        //Convert encoded bytes back to a 'readable' string
-        //return Convert.ToBase64String(saltedHash);
 		try {
 			
 		SecretKeySpec keySpec = new SecretKeySpec(
@@ -52,7 +42,8 @@ public class AppGlobals {
         byte[] rawHmac = mac.doFinal(password.getBytes("utf-8"));
 
         Base64 encode = new Base64();
-        return encode.encodeToString(rawHmac);		
+        String pass = encode.encodeToString(rawHmac);
+        return pass.substring(0, pass.length() - 2);
         
 		} catch (NoSuchAlgorithmException e) {
 			// TODO Auto-generated catch block

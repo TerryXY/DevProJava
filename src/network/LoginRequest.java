@@ -5,4 +5,11 @@ public class LoginRequest {
 	public String password;
 	public String uid;
 	
+	public LoginRequest(String user, String pass, String id)
+	{
+		this.username = user;
+		this.password = pass;
+		this.uid = id;
+	}
+	
 }

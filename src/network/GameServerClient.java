@@ -3,6 +3,8 @@ import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.charset.Charset;
+import java.util.Arrays;
 
 import app.AppGlobals;
 
@@ -86,7 +88,7 @@ public class GameServerClient extends Thread
 			if(data != null && isConnected)
 			{
 				this.send.write(data);
-				System.out.println("Sent");
+				System.out.println("Packet Sent.");
 			}
 		} 
 		catch (IOException e) 
@@ -109,9 +111,6 @@ public class GameServerClient extends Thread
 				short len = bb.getShort(0);
 				byte[] content = new byte[len];
 				this.receive.read(content);
-				System.out.println("Packet Recived");
-				System.out.println(content.length);
-				System.out.println(content);
 				onCommand(content);
 				
 			} 
@@ -139,6 +138,15 @@ public class GameServerClient extends Thread
 	{
 		//do packet handling here
 		ClientPackets cmd = ClientPackets.fromInt(raw[0]);
-		System.out.println(cmd.toString());
+		System.out.println("Packet: " + cmd.toString());
+		
+		if(cmd == ClientPackets.LoginAccepted)
+		{ 
+			String logindata = new String(Arrays.copyOfRange(raw, 1, raw.length),Charset.forName("UTF-8"));
+			System.out.println(logindata);
+			LoginData data = AppGlobals.gson.fromJson(logindata, LoginData.class);
+			System.out.println(data.LoginKey);
+		}
+		
 	}
 }
