@@ -6,5 +6,6 @@ public class Competitor {
 	public long userId;
 	public Match currentMatch;
 	public Boolean isReady;
+	public int position;
 	
 }
